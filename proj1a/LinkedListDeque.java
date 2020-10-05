@@ -1,8 +1,8 @@
 public class LinkedListDeque<T> {
-    public class Node {
-        public T item;
-        public Node prev;
-        public Node next;
+    private class Node {
+        private T item;
+        private Node prev;
+        private Node next;
 
         public Node(T i, Node p, Node n) {
             item = i;
@@ -21,13 +21,6 @@ public class LinkedListDeque<T> {
         sentinel.prev = sentinel;
         sentinel.next = sentinel;
         size = 0;
-    }
-
-    /** Create a non-empty Deque. */
-    public LinkedListDeque(T i) {
-        sentinel.next = new Node(i, sentinel, null);
-        sentinel.prev = sentinel.next;
-        size += 1;
     }
 
     /** Adds an item of type T to the front of the deque. */
@@ -62,7 +55,8 @@ public class LinkedListDeque<T> {
         }
     }
 
-    /* Removes and returns the item at the front of the deque. If no such item exists, returns null. */
+    /* Removes and returns the item at the front of the deque.
+    /* If no such item exists, returns null. */
     public T removeFirst() {
         if (sentinel.next == null) {
             return null;
@@ -101,7 +95,7 @@ public class LinkedListDeque<T> {
     }
 
     /** Gets the item at the given index, where 0 is the front, 1 is the next item, and forth.
-    /** If no such item exists, returns null. Must not alter the deque. */
+      * If no such item exists, returns null. Must not alter the deque. */
     public T get(int index) {
         Node p = sentinel.next;
         while (index != 0 && p != sentinel) {
@@ -122,13 +116,13 @@ public class LinkedListDeque<T> {
     }
 
     /** getRecursive Helper. */
-    public T getRecursiveHelper(int index, Node start) {
+    private T getRecursiveHelper(int index, Node start) {
         if (start == sentinel) {
             return null;
         } else if (index == 0) {
             return start.item;
         } else {
-            return getRecursiveHelper(index-1, start.next);
+            return getRecursiveHelper(index - 1, start.next);
         }
     }
 

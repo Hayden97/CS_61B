@@ -16,12 +16,18 @@ public class ArrayDeque<T> {
     /** Resize the array to rFactor its current size. 
       * Rearrange the array so that nextFirst is 0. */
     private void resize(double rFactor) {
-        T[] a = (T[]) new Object[(int) rFactor * size];
+        T[] a = (T[]) new Object[(int) (rFactor * items.length)];
         int startIndex = plusOne(nextFirst);
-        // copy the addFirst Part
-        System.arraycopy(items, startIndex, a, 0, size - startIndex);
-        // copy the addLast Part, sum of total lengths copied should equal size
-        System.arraycopy(items, 0, a, size - startIndex, startIndex);
+        int endIndex = minusOne(nextLast);
+        if (startIndex < endIndex) {
+            System.arraycopy(items, startIndex, a, 0, size);
+        } else {
+            //two parts
+            // copy the addFirst Part
+            System.arraycopy(items, startIndex, a, 0, items.length - startIndex);
+            // copy the addLast Part, sum of total lengths copied should equal size
+            System.arraycopy(items, 0, a, items.length - startIndex, size - items.length + startIndex);
+        }
         items = a;
         nextFirst = minusOne(items.length);
         nextLast = size;
@@ -135,18 +141,17 @@ public class ArrayDeque<T> {
         }
     }
 
-/*   public static void main(String[] args) {
+   /*public static void main(String[] args) {
         ArrayDeque<Integer> a1 = new ArrayDeque<>();
-        a1.addFirst(0);
-        a1.addFirst(1);
-        a1.addFirst(2);
-        a1.addFirst(3);
-        a1.addFirst(0);
-        a1.addFirst(1);
-        a1.addFirst(2);
-        a1.addFirst(3);
-        // System.out.println(a1.isEmpty());
-        //a1.printDeque();
+       for (int i = 0; i < 33; i += 1) {
+           a1.addFirst(0);
+       }
+       for (int i = 0; i < 17; i += 1) {
+           a1.removeFirst();
+       }
+       a1.removeFirst();
+       // System.out.println(a1.isEmpty());
+       a1.printDeque();
     }*/
 
 }

@@ -17,10 +17,11 @@ public class ArrayDeque<T> {
       * Rearrange the array so that nextFirst is 0. */
     private void resize(int rFactor) {
         T[] a = (T[]) new Object[rFactor * size];
+        int startIndex = plusOne(nextFirst);
         // copy the addFirst Part
-        System.arraycopy(items, plusOne(nextFirst), a, 0, size - nextFirst - 1);
+        System.arraycopy(items, startIndex, a, 0, size - startIndex);
         // copy the addLast Part, sum of total lengths copied should equal size
-        System.arraycopy(items, 0, a, size - nextFirst - 1, nextFirst + 1);
+        System.arraycopy(items, 0, a, size - startIndex, startIndex);
         items = a;
         nextFirst = items.length - 1;
         nextLast = size;
@@ -68,9 +69,14 @@ public class ArrayDeque<T> {
     }
 
 
-    /** Get the index item of the array Deque. */
+    /** Gets the item at the given index.
+      * If no such item exists, returns null.  */
     public T get(int index) {
-        return items[index];
+        if (index > nextFirst && index < nextLast) {
+            return items[index];
+        } else {
+            return null;
+        }
     }
 
 

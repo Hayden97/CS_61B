@@ -8,7 +8,7 @@ public class ArrayDeque<T> {
     public ArrayDeque() {
         items = (T[]) new Object[8];
         size = 0;
-        nextFirst = items.length - 1;
+        nextFirst = minusOne(items.length);
         nextLast = size;
     }
 
@@ -23,7 +23,7 @@ public class ArrayDeque<T> {
         // copy the addLast Part, sum of total lengths copied should equal size
         System.arraycopy(items, 0, a, size - startIndex, startIndex);
         items = a;
-        nextFirst = items.length - 1;
+        nextFirst = minusOne(items.length);
         nextLast = size;
     }
 
@@ -72,7 +72,8 @@ public class ArrayDeque<T> {
     /** Gets the item at the given index.
       * If no such item exists, returns null.  */
     public T get(int index) {
-        if (index > nextFirst && index < nextLast) {
+        if (((index > nextFirst) && (index < (items.length - 1)))
+                || ((index > 0) && (index < nextLast))) {
             return items[index];
         } else {
             return null;
@@ -116,32 +117,24 @@ public class ArrayDeque<T> {
         int startIndex = plusOne(nextFirst);
         // print the first part
         for (int i = 0; i < items.length - nextFirst - 1; i += 1) {
-            System.out.println(items.length);
-            System.out.print("first part i" + i + " ");
             System.out.print(items[startIndex + i] + " ");
-            System.out.println();
         }
         // print size times
         for (int i = 0; i < size - items.length + nextFirst + 1; i += 1) {
-            System.out.print("second part i" + i + " ");
             System.out.print(items[i] + " ");
-            System.out.println();
         }
     }
 
-   /* public static void main(String[] args) {
+   /*public static void main(String[] args) {
         ArrayDeque<Integer> a1 = new ArrayDeque<>();
-        a1.addLast(1);
-        a1.addLast(2);
-        a1.addLast(3);
-        a1.addLast(4);
-        a1.addLast(1);
-        a1.addLast(2);
-        a1.addLast(3);
-        a1.addLast(4);
         a1.addFirst(0);
-        System.out.println(a1.size());
-        a1.printDeque();
+        a1.addFirst(1);
+        a1.addFirst(2);
+        a1.removeFirst();
+        a1.removeFirst();
+        a1.removeFirst();
+        System.out.println(a1.isEmpty());
+        //a1.printDeque();
     }*/
 
 }

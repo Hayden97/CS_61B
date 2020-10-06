@@ -26,7 +26,8 @@ public class ArrayDeque<T> {
             // copy the addFirst Part
             System.arraycopy(items, startIndex, a, 0, items.length - startIndex);
             // copy the addLast Part, sum of total lengths copied should equal size
-            System.arraycopy(items, 0, a, items.length - startIndex, size - items.length + startIndex);
+            System.arraycopy(items, 0, a, items.length - startIndex,
+                    size - items.length + startIndex);
         }
         items = a;
         nextFirst = minusOne(items.length);
@@ -78,11 +79,11 @@ public class ArrayDeque<T> {
     /** Gets the item at the given index.
       * If no such item exists, returns null.  */
     public T get(int index) {
-        boolean withinrange = (index >= 0) && (index < items.length);
-        int lastIndex = minusOne(nextLast);
+        boolean withinrange = (index >= 0) && (index < size);
         int firstIndex = plusOne(nextFirst);
-        if (withinrange && (index <= lastIndex || index >= firstIndex)) {
-            return items[index];
+        int arrayIndex = (firstIndex + index) % items.length;
+        if (withinrange) {
+            return items[arrayIndex];
         } else {
             return null;
         }
@@ -141,17 +142,14 @@ public class ArrayDeque<T> {
         }
     }
 
-   /*public static void main(String[] args) {
-        ArrayDeque<Integer> a1 = new ArrayDeque<>();
-       for (int i = 0; i < 33; i += 1) {
-           a1.addFirst(0);
-       }
-       for (int i = 0; i < 17; i += 1) {
-           a1.removeFirst();
-       }
-       a1.removeFirst();
-       // System.out.println(a1.isEmpty());
-       a1.printDeque();
+/*   public static void main(String[] args) {
+       ArrayDeque<Integer> a1 = new ArrayDeque<>();
+        
+       a1.addFirst(0);
+       a1.addLast(1);
+       a1.addFirst(2);
+       a1.addFirst(3);
+       System.out.println(a1.get(0));
     }*/
 
 }

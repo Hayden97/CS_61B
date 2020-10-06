@@ -61,14 +61,16 @@ public class ArrayDeque<T> {
         return size == 0;
     }
 
-    /** Get the index item of the array Deque. */
-    public T get(int index) {
-        return items[index];
-    }
 
     /** Get the size of the array Deque. */
     public int size() {
         return size;
+    }
+
+
+    /** Get the index item of the array Deque. */
+    public T get(int index) {
+        return items[index];
     }
 
 
@@ -78,9 +80,10 @@ public class ArrayDeque<T> {
         if (size == 0) {
             return null;
         } else {
-            T firstItem = items[plusOne(nextFirst)];
-            items[plusOne(nextFirst)] = null;
-            nextFirst = plusOne(nextFirst);
+            int firstItemIndex = plusOne(nextFirst);
+            T firstItem = items[firstItemIndex];
+            items[firstItemIndex] = null;
+            nextFirst = firstItemIndex;
             size -= 1;
             return firstItem;
         }
@@ -92,9 +95,10 @@ public class ArrayDeque<T> {
         if (size == 0) {
             return null;
         } else {
-            T lastItem = items[minusOne(nextLast)];
-            items[minusOne(nextLast)] = null;
-            nextLast = minusOne(nextLast);
+            int lastItemIndex = minusOne(nextLast);
+            T lastItem = items[lastItemIndex];
+            items[lastItemIndex] = null;
+            nextLast = lastItemIndex;
             size -= 1;
             return lastItem;
         }
@@ -112,8 +116,20 @@ public class ArrayDeque<T> {
         }
     }
 
-    public static void main(String[] args) {
-        System.out.println("Hello world");
-    }
+   /* public static void main(String[] args) {
+        ArrayDeque<Integer> a1 = new ArrayDeque<>();
+        a1.addLast(1);
+        a1.addLast(2);
+        a1.addLast(3);
+        a1.addLast(4);
+        a1.addLast(1);
+        a1.addLast(2);
+        a1.addLast(3);
+        a1.addLast(4);
+        a1.addLast(1);
+        a1.addFirst(0);
+        System.out.println(a1.size());
+        a1.printDeque();
+    }*/
 
 }

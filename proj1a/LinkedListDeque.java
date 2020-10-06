@@ -4,7 +4,7 @@ public class LinkedListDeque<T> {
         private Node prev;
         private Node next;
 
-        public Node(T i, Node p, Node n) {
+        private Node(T i, Node p, Node n) {
             item = i;
             prev = p;
             next = n;
@@ -12,26 +12,31 @@ public class LinkedListDeque<T> {
     }
 
     // sentinel.next is always the first Node
-    // sentinel.prev is alway sthe last Node
-    private Node sentinel = new Node(null, null, null);
+    // sentinel.prev is always the last Node
+    private Node sentinel;
     private int size;
 
     /** Create an empty Deque. */
     public LinkedListDeque() {
-        sentinel.prev = sentinel;
+        sentinel = new Node(null, null, null);
         sentinel.next = sentinel;
+        sentinel.prev = sentinel;
         size = 0;
     }
 
     /** Adds an item of type T to the front of the deque. */
     public void addFirst(T item) {
-        sentinel.next = new Node(item, sentinel, sentinel.next);
+        Node prevFirst = sentinel.next;
+        sentinel.next = new Node(item, sentinel, prevFirst);
+        prevFirst.prev = sentinel.next;
         size += 1;
     }
 
     /** Adds an item of type T to the back of the deque. */
     public void addLast(T item) {
-        sentinel.prev = new Node(item, sentinel.prev, sentinel);
+        Node prevLast = sentinel.prev;
+        sentinel.prev = new Node(item, prevLast, sentinel);
+        prevLast.next = sentinel.prev;
         size += 1;
     }
 
@@ -58,39 +63,30 @@ public class LinkedListDeque<T> {
     /* Removes and returns the item at the front of the deque.
     /* If no such item exists, returns null. */
     public T removeFirst() {
-        if (sentinel.next == null) {
+        if (size == 0) {
             return null;
         }
 
         T firstItem = sentinel.next.item;
         Node newFirst = sentinel.next.next;
-        if (newFirst == null) {
-            // newFirst does not have prev
-            sentinel.prev = newFirst;
-        } else {
-            // newFirst has a prev
-            newFirst.prev = sentinel;
-        }
+        newFirst.prev = sentinel;
         sentinel.next = newFirst;
+        size -= 1;
         return firstItem;
     }
 
-    /** Removes and returns the item at the back of the deque. If no such item exists, returns null. */
+    /** Removes and returns the item at the back of the deque.
+      * If no such item exists, returns null. */
     public T removeLast() {
-        if (sentinel.prev == null) {
+        if (size == 0) {
             return null;
         }
 
         T lastItem = sentinel.prev.item;
         Node newLast = sentinel.prev.prev;
-        if (newLast == null) {
-            // newLast does not have next
-            sentinel.next = newLast;
-        } else {
-            // newLast has a next
-            newLast.next = sentinel;
-        }
+        newLast.next = sentinel;
         sentinel.prev = newLast;
+        size -= 1;
         return lastItem;
     }
 
@@ -98,6 +94,7 @@ public class LinkedListDeque<T> {
       * If no such item exists, returns null. Must not alter the deque. */
     public T get(int index) {
         Node p = sentinel.next;
+
         while (index != 0 && p != sentinel) {
             index -= 1;
             p = p.next;
@@ -126,24 +123,24 @@ public class LinkedListDeque<T> {
         }
     }
 
-
-
-    /*public static void main(String[] args) {
-        LinkedListDeque<Integer> s1 = new LinkedListDeque<>(5);
+   /* public static void main(String[] args) {
+        LinkedListDeque<Integer> s1 = new LinkedListDeque<>();
         s1.addFirst(0);
-        s1.addLast(10);
-        // s1.removeFirst();
-        // s1.printDeque();
-        // System.out.println(s1.size());
-        System.out.println(s1.getRecursive(0));
-        System.out.println(s1.getRecursive(1));
-        System.out.println(s1.getRecursive(2));
-        System.out.println(s1.getRecursive(3));
+        s1.addLast(1);
+        s1.removeFirst();
+        s1.addLast(2);
+        s1.addLast(3);
+        s1.addLast(4);
+        s1.addLast(5);
+        s1.printDeque();
+        System.out.println();
 
-        *//*System.out.println(s1.size);
-        System.out.println(s1.sentinel.prev.item);
-        System.out.println(s1.sentinel.next.item);*//*
-    }
-*/
+        System.out.println(s1.get(8));
+        System.out.println(s1.get(0));
+        System.out.println(s1.get(1));
+        System.out.println(s1.get(2));
+        System.out.println(s1.get(3));
+        System.out.println(s1.size);
+    }*/
 
 }

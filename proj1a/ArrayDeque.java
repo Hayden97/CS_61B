@@ -9,14 +9,14 @@ public class ArrayDeque<T> {
         items = (T[]) new Object[8];
         size = 0;
         nextFirst = minusOne(items.length);
-        nextLast = size;
+        nextLast = 0;
     }
 
 
     /** Resize the array to rFactor its current size. 
       * Rearrange the array so that nextFirst is 0. */
-    private void resize(int rFactor) {
-        T[] a = (T[]) new Object[rFactor * size];
+    private void resize(double rFactor) {
+        T[] a = (T[]) new Object[(int) rFactor * size];
         int startIndex = plusOne(nextFirst);
         // copy the addFirst Part
         System.arraycopy(items, startIndex, a, 0, size - startIndex);
@@ -32,9 +32,9 @@ public class ArrayDeque<T> {
         return (index + 1) % items.length;
     }
 
-    /** Minus one modulo length. */
+    /** Minus one modulus length. */
     private int minusOne(int index) {
-        return (index - 1) % items.length;
+        return ((index - 1) + items.length) % items.length;
     }
 
     /** Add an item of type T to the front of the array. */
@@ -72,8 +72,10 @@ public class ArrayDeque<T> {
     /** Gets the item at the given index.
       * If no such item exists, returns null.  */
     public T get(int index) {
-        if (((index > nextFirst) && (index < (items.length - 1)))
-                || ((index > 0) && (index < nextLast))) {
+        boolean withinrange = (index >= 0) && (index < items.length);
+        int lastIndex = minusOne(nextLast);
+        int firstIndex = plusOne(nextFirst);
+        if (withinrange && (index <= lastIndex || index >= firstIndex)) {
             return items[index];
         } else {
             return null;
@@ -92,6 +94,10 @@ public class ArrayDeque<T> {
             items[firstItemIndex] = null;
             nextFirst = firstItemIndex;
             size -= 1;
+            // resize by half if usage ratio is lower than 0.25
+            if (size >= 8 && (((double) size / items.length) < 0.25)) {
+                resize(0.5);
+            }
             return firstItem;
         }
     }
@@ -107,6 +113,10 @@ public class ArrayDeque<T> {
             items[lastItemIndex] = null;
             nextLast = lastItemIndex;
             size -= 1;
+            // resize by half if usage ratio is lower than 0.25
+            if (size >= 8 && (((double) size / items.length) < 0.25)) {
+                resize(0.5);
+            }
             return lastItem;
         }
     }
@@ -125,15 +135,17 @@ public class ArrayDeque<T> {
         }
     }
 
-   /*public static void main(String[] args) {
+/*   public static void main(String[] args) {
         ArrayDeque<Integer> a1 = new ArrayDeque<>();
         a1.addFirst(0);
         a1.addFirst(1);
         a1.addFirst(2);
-        a1.removeFirst();
-        a1.removeFirst();
-        a1.removeFirst();
-        System.out.println(a1.isEmpty());
+        a1.addFirst(3);
+        a1.addFirst(0);
+        a1.addFirst(1);
+        a1.addFirst(2);
+        a1.addFirst(3);
+        // System.out.println(a1.isEmpty());
         //a1.printDeque();
     }*/
 

@@ -113,12 +113,19 @@ public class ArrayDeque<T> {
 
     /** Prints the items in the deque from first to last, separated by a space. */
     public void printDeque() {
+        int startIndex = plusOne(nextFirst);
         // print the first part
         for (int i = 0; i < items.length - nextFirst - 1; i += 1) {
-            System.out.print(items[plusOne(nextFirst) + i] + " ");
+            System.out.println(items.length);
+            System.out.print("first part i" + i + " ");
+            System.out.print(items[startIndex + i] + " ");
+            System.out.println();
         }
-        for (int i = 0; i < size + nextFirst + 1 - items.length; i += 1) {
+        // print size times
+        for (int i = 0; i < size - items.length + nextFirst + 1; i += 1) {
+            System.out.print("second part i" + i + " ");
             System.out.print(items[i] + " ");
+            System.out.println();
         }
     }
 
@@ -132,7 +139,6 @@ public class ArrayDeque<T> {
         a1.addLast(2);
         a1.addLast(3);
         a1.addLast(4);
-        a1.addLast(1);
         a1.addFirst(0);
         System.out.println(a1.size());
         a1.printDeque();

@@ -19,20 +19,20 @@ public class TestPalindrome {
 
     @Test
     public void testisPalindrome() {
-        String word_p1 = "a";
-        String word_p2 = "racecar";
-        String word_p3 = "";
-        String word_np4 = "horse";
-        String word_np5 = "rancor";
-        String word_np6 = "aaaab";
+        String wordP1 = "a";
+        String wordP2 = "racecar";
+        String wordP3 = "";
+        String wordNp4 = "horse";
+        String wordNp5 = "rancor";
+        String wordNp6 = "aaaab";
 
-        assertTrue(palindrome.isPalindrome(word_p1));
-        assertTrue(palindrome.isPalindrome(word_p2));
-        assertTrue(palindrome.isPalindrome(word_p3));
+        assertTrue(palindrome.isPalindrome(wordP1));
+        assertTrue(palindrome.isPalindrome(wordP2));
+        assertTrue(palindrome.isPalindrome(wordP3));
 
-        assertFalse(palindrome.isPalindrome(word_np4));
-        assertFalse(palindrome.isPalindrome(word_np5));
-        assertFalse(palindrome.isPalindrome(word_np6));
+        assertFalse(palindrome.isPalindrome(wordNp4));
+        assertFalse(palindrome.isPalindrome(wordNp5));
+        assertFalse(palindrome.isPalindrome(wordNp6));
     }
 
     @Test

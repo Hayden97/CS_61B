@@ -9,21 +9,20 @@ public class TestOffByOne {
     static CharacterComparator offByOne = new OffByOne();
 
     // Your tests go here.
-    // Uncomment this class once you've created your CharacterComparator interface and OffByOne class. *
     @Test
-    public void TestPalindrome() {
+    public void testPalindrome() {
         Palindrome palindrome = new Palindrome();
-        String word_p1 = "a";
-        String word_p2 = "flake";
-        String word_p3 = "";
-        String word_np4 = "racecar";
-        String word_np5 = "abc";
+        String wordP1 = "a";
+        String wordP2 = "flake";
+        String wordP3 = "";
+        String wordNP4 = "racecar";
+        String wordNP5 = "abc";
 
-        assertTrue(palindrome.isPalindrome(word_p1, offByOne));
-        assertTrue(palindrome.isPalindrome(word_p2, offByOne));
-        assertTrue(palindrome.isPalindrome(word_p3, offByOne));
+        assertTrue(palindrome.isPalindrome(wordP1, offByOne));
+        assertTrue(palindrome.isPalindrome(wordP2, offByOne));
+        assertTrue(palindrome.isPalindrome(wordP3, offByOne));
 
-        assertFalse(palindrome.isPalindrome(word_np4, offByOne));
-        assertFalse(palindrome.isPalindrome(word_np5, offByOne));
+        assertFalse(palindrome.isPalindrome(wordNP4, offByOne));
+        assertFalse(palindrome.isPalindrome(wordNP5, offByOne));
     }
 }

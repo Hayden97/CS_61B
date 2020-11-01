@@ -29,14 +29,14 @@ public class Palindrome {
     }
 
     private boolean isPalindrome(Deque<Character> wordDeque, CharacterComparator cc) {
-        boolean result = true;
         // base case
-        if (wordDeque.size() != 0 && wordDeque.size() != 1) {
-            Character first =  wordDeque.removeFirst();
-            Character last =  wordDeque.removeLast();
-            result = (cc.equalChars(first, last)) && isPalindrome(wordDeque, cc);
+        if (wordDeque.size() == 0 || wordDeque.size() == 1) {
+            return true;
         }
 
-        return result;
+        Character first =  wordDeque.removeFirst();
+        Character last =  wordDeque.removeLast();
+
+        return (cc.equalChars(first, last)) && isPalindrome(wordDeque, cc);
     }
 }

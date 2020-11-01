@@ -36,7 +36,7 @@ public class TestPalindrome {
     }
 
     @Test
-    public void TestOffByOne() {
+    public void testOffByOne() {
         OffByOne obo = new OffByOne();
         assertTrue(obo.equalChars('a', 'b'));
         assertTrue(obo.equalChars('r', 'q'));
